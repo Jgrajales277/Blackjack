@@ -31,6 +31,7 @@ const crearDeck = () => {
 
   deck = _.shuffle(deck);
   console.log(deck);
+  return deck;
 };
 
 crearDeck();
@@ -42,13 +43,12 @@ const pedirCarta = () => {
     throw "No hay más cartas en la baraja";
   }
 
-  const carta = deck.shift();
+  const carta = deck.pop();
 
   return carta;
 };
 
 //Esta función permite retornar el valor de la carta extraída
-
 
 const valorCarta = (carta) => {
   const valor = carta.substring(0, carta.length - 1);
@@ -105,38 +105,36 @@ btnPedir.addEventListener("click", () => {
   imgCarta.classList.add("carta");
 
   divCartasJugador.append(imgCarta);
-  
+
   if (puntosJugador > 21) {
-      console.warn("Perdiste :S");
-      btnPedir.disabled = true;
+    console.warn("Perdiste :S");
+    btnPedir.disabled = true;
     btnDetener.disabled = true;
     turnoComputadora();
-} else if (puntosJugador === 21) {
+  } else if (puntosJugador === 21) {
     console.warn("¡Ganaste! :D");
     btnPedir.disabled = true;
     btnDetener.disabled = true;
-}
+  }
 });
 
 btnDetener.addEventListener("click", () => {
-    btnDetener.disabled = true;
-    btnPedir.disabled = true;
-    turnoComputadora(puntosJugador);
+  btnDetener.disabled = true;
+  btnPedir.disabled = true;
+  turnoComputadora(puntosJugador);
 });
 
- btnNuevoJuego.addEventListener("click", () => {
-      console.clear;
-      deck = [];
-      deck = crearDeck();
-     puntosJugador = 0;
-      puntosComputadora = 0;
-      puntajeHtml[0].innerHTML = 0;
-      puntajeHtml[1].innerHTML = 0;
-      divCartasComputadora.innerHTML = "";
-      divCartasJugador.innerHTML = "";
-      btnPedir.disabled = false;
-      btnDetener.disabled = false;  
+btnNuevoJuego.addEventListener("click", () => {
+  deck = [];
+  deck = crearDeck();
+  puntosJugador = 0;
+  puntosComputadora = 0;
+  puntajeHtml[0].innerHTML = 0;
+  puntajeHtml[1].innerHTML = 0;
+  divCartasComputadora.innerHTML = "";
+  divCartasJugador.innerHTML = "";
+  btnPedir.disabled = false;
+  btnDetener.disabled = false;
 
-     //document.location.reload();
-     
-     });
+  //document.location.reload();
+});
